@@ -1,6 +1,11 @@
 from django.shortcuts import render
 from .models import Emotion
 
+from django.shortcuts import render
+
+def landing_page(request):
+    return render(request, 'base.html')
+
 
 def get_affirmations(request):
     emotions = Emotion.objects.all()  # Fetch all emotions

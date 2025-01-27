@@ -1,34 +1,24 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Affirmation App</title>
-</head>
-<body>
-    <h1>Affirmations Based on Emotions</h1>
+{% extends 'base.html' %}
 
-    <!-- Form to Select an Emotion -->
-    <form method="get" action="">
-        <label for="emotion">Select an Emotion:</label>
-        <select id="emotion" name="emotion">
-            {% for emotion in emotions %}
-                <option value="{{ emotion.name }}">{{ emotion.name }}</option>
-            {% endfor %}
-        </select>
-        <button type="submit">Show Affirmations</button>
-    </form>
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <h2 class="text-primary mb-4">Affirmations</h2>
+        {% for emotion, affirmations in affirmations_by_emotion.items %}
+            <div class="card mb-3">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="card-title mb-0">{{ emotion.name }}</h5>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group list-group-flush">
+                        {% for affirmation in affirmations %}
+                            <li class="list-group-item">{{ affirmation.text }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
 
-    <!-- Display Affirmations -->
-    <h2>Affirmations</h2>
-    {% if affirmations %}
-        <ul>
-            {% for affirmation in affirmations %}
-                <li>{{ affirmation.text }}</li>
-            {% endfor %}
-        </ul>
-    {% else %}
-        <p>No affirmations found for the selected emotion.</p>
-    {% endif %}
-</body>
-</html>
