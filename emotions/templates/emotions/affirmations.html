@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emotion Affirmations</title>
+</head>
+<body>
+    <h1>Choose Your Emotion</h1>
+    <!-- Form to select emotion and get affirmations -->
+    <form method="post">
+        {% csrf_token %}
+        <select name="emotion">
+            {% for emotion in emotions %}
+                <!-- List all emotions as dropdown options -->
+                <option value="{{ emotion.id }}">{{ emotion.name }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit">Get Affirmations</button>
+    </form>
+
+    {% if affirmations %}
+        <!-- If affirmations are available, display them -->
+        <h2>Affirmations for {{ affirmations.0.emotion.name }}</h2>
+        <ul>
+            {% for affirmation in affirmations %}
+                <li>{{ affirmation.text }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+</body>
+</html>
